@@ -95,6 +95,13 @@ body {
 
 .container {
     margin-top: 50px;
+        border: 2px solid red;
+    padding: 10px;
+    display: inline-block;
+    background-color: white;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 input, button {
