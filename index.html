@@ -14,27 +14,26 @@
     <h5><button class="love-button"><i class="fa-duotone fa-solid fa-user-tie">&nbsp;&nbsp;&nbsp;</i><a href="">Anonymous confessions</a></button><br><br><br><br><br><br><br>
     <button class="love-button"><i class="fa-brands fa-instagram"> &nbsp;&nbsp;</i><a href="">Our social media</a></button></h5>
 
+    
         <div class="container">
         <h1 style="font-size: 25px;">❤️ Love Calculator ❤️</h1>
         <input type="text" id="name1" placeholder="Enter first name">
         <input type="text" id="name2" placeholder="Enter second name">
         <button onclick="calculateLove()">Calculate Love</button>
-        <h2 id="result"></h2>
+        <h5 id="result"></h5>
     </div>
+
+    
     <script>
      function calculateLove() {
     let name1 = document.getElementById("name1").value;
     let name2 = document.getElementById("name2").value;
-
     if (name1 === "" || name2 === "") {
         alert("Please enter both names!");
         return;
     }
-
     let loveScore = Math.floor(Math.random() * 61) + 40; 
     let resultMessage = ` The love of ${name1} & ${name2} is ${loveScore}% `;
-
-    // Adding boundary-based reactions
     if (loveScore < 60) {
         resultMessage += " - Hmm, might need some effort! 😅";
     } else if (loveScore < 80) {
@@ -42,10 +41,8 @@
     } else {
         resultMessage += " - True soulmates! 💖";
     }
-
     document.getElementById("result").innerText = resultMessage;
 }
-
-    </script>
+  </script>
 </body>
 </html>
