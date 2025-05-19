@@ -22,25 +22,30 @@
         <h2 id="result"></h2>
     </div>
     <script>
-        function calculateLove() {
-            let name1 = document.getElementById("name1").value;
-            let name2 = document.getElementById("name2").value;
+     function calculateLove() {
+    let name1 = document.getElementById("name1").value;
+    let name2 = document.getElementById("name2").value;
 
-            if (name1 === "" || name2 === "") {
-                alert("Please enter both names!");
-                return;
-            }
+    if (name1 === "" || name2 === "") {
+        alert("Please enter both names!");
+        return;
+    }
 
-            let loveScore = Math.floor(Math.random() * 101); // Generates a number between 0-100
-            document.getElementById("result").innerText = `❤️ Love of ${name1} & ${name2} is ${loveScore}% ❤️`;
-               if (loveScore < 60) {
+    let loveScore = Math.floor(Math.random() * 61) + 40;  // Ensures score is between 40 and 100
+    let resultMessage = `❤️ The love of ${name1} & ${name2}is ${loveScore}% ❤️`;
+
+    // Adding boundary-based reactions
+    if (loveScore < 60) {
         resultMessage += " - Hmm, might need some effort! 😅";
     } else if (loveScore < 80) {
         resultMessage += " - Solid match! 🔥";
     } else {
         resultMessage += " - True soulmates! 💖";
     }
-        }
+
+    document.getElementById("result").innerText = resultMessage;
+}
+
     </script>
 </body>
 </html>
