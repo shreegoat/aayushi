@@ -91,17 +91,17 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: pink;
-            border: 2px solid red;
+}
+
+.container {
+    margin-top: 50px;
+ border: 2px solid red;
     padding: 10px;
     display: inline-block;
     background-color: white;
     color: black;
     font-size: 18px;
     font-weight: bold;
-}
-
-.container {
-    margin-top: 50px;
 }
 
 input, button {
