@@ -22,7 +22,11 @@ h5{
     text-align: center;
    font-family: Waiting for the sunrise;
 }
-
+.pic img{
+height: 200px;
+width: 180px;
+border-radius: 10%;
+}
 
 
 
@@ -87,14 +91,11 @@ button::after {
     opacity: 0;
   }
 }
-
-
 body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: pink;
 }
-
 .container {
     margin-top: 50px;
  border: 2px solid red;
@@ -105,24 +106,18 @@ body {
     font-size: 18px;
     font-weight: bold;
 }
-
 input, button {
     padding: 10px;
     margin: 10px;
     font-size: 16px;
 }
-
 button {
     background-color: red;
     color: white;
     border: none;
     cursor: pointer;
 }
-
 button:hover {
     background-color: darkred;
 }
-
-h2 {
-    color: purple;
-}
+//the end//
