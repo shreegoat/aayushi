@@ -5,84 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Ayshepedia</title>
-
     <h1>Ayshopedia</h1>
-    <h6 style="text-align: right;">By an Ayshophile</h6>
+        <h6 style="text-align: right;">By an Ayshophile</h6>
 </head>
 <br><br><br><br><br><br><br>
 <body>
 
-
-       <div id="calculator-container">
-    <h2>Ayshalculator</h2>
-
-    <input type="text" id="name1" placeholder="Enter your name">
-    <input type="text" id="name2" placeholder="Enter LOYL's name"><br><br>
-    <button onclick="checkLove()">check</button>
-
-    <div id="result"></div>
+    <div id="calculator-container">
+        <h2>Ayshalculator</h2>
+        <input type="text" id="name1" placeholder="Enter your name">
+        <input type="text" id="name2" placeholder="Enter LOYL's name">
+        <br><br>
+        <button onclick="checkLove()">Check</button>
+        <div id="result"></div>
     </div>
     <br><br><br><br><br><br><br><br><br><br>
-    
-       <div id="chat-container">
-        <h2>Ayshificial Intellegence 🤖</h2>
+
+    <div id="chat-container">
+        <h2>Ayshificial Intelligence 🤖</h2>
         <div id="chat-box"></div>
-        <input type="text" id="user-input" placeholder="Type a message..." />
+        <input type="text" id="user-input" placeholder="What's up aysh ji?">
         <button onclick="sendMessage()">Send</button>
     </div>
-    </body>
 
     <script>
-        function checkLove() {
-            const name1 = document.getElementById("name1").value.trim();
-            const name2 = document.getElementById("name2").value.trim();
-            const specialNames = ["Shree", "Aysh"];
+             // Levenshtein Distance function for fuzzy matching
+        function levenshteinDistance(a, b) {
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+            for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
 
-            if (specialNames.includes(name1) && specialNames.includes(name2)) {
-                document.getElementById("result").innerHTML = "You guys are just made for each other. Both of you should just fuck right now!";
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    matrix[i][j] = (b.charAt(i - 1) === a.charAt(j - 1))
+                        ? matrix[i - 1][j - 1]
+                        : Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
+                }
+            }
+            return matrix[b.length][a.length];
+        }
+
+      //ayshalculator
+      function checkLove() {
+            let name1 = document.getElementById("name1").value.trim().toLowerCase();
+            let name2 = document.getElementById("name2").value.trim().toLowerCase();
+
+            if (!name1 || !name2) {
+                document.getElementById("result").textContent = "Please enter both names!";
+                return;
+            }
+
+            if ((name1 === "aysh" && name2 === "shree") || (name1 === "shree" && name2 === "aysh")) {
+                document.getElementById("result").textContent = "You guys are just made for each other. Both of you should just fuck right now! 😋";
             } else {
-                document.getElementById("result").innerHTML = "There are no great lovers than Aysh & Shree. Bitch!";
+                document.getElementById("result").textContent = "There are no great lovers than Aysh & Shree. Bitch!";
             }
         }
 
+        // Ayshificial Chatbot Logic
+        const qaPairs = [
+            {question: "hello", answer: "Hello Aysh ma'am. How're you? 😊" },
+            {question: "what is my fav food", answer: "Hmm... your fav food keeps changing, but for now it's panipuri." },
+            {question: "what is my fav color", answer: "Your fav color is white, just as pure as your heart, ma'am!" },
+            {question: "when is my bday", answer: "The world knows it. It's on Asadh 21st \ June 5." },
+            {question: "what is my fav animal", answer: "hmm, trick question you don't have a fav ani... oh wait you do,SHREE GOAT!"},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: " ", answer: " "},
+            {question: "bye", answer: "Bye! Go, Shree hubby is waiting for you!" }
+        ];
+
+        function getAnswer(userInput) {
+            userInput = userInput.toLowerCase().trim();
+            let bestMatch = null, bestDistance = Infinity;
+
+            qaPairs.forEach(pair => {
+                const distance = levenshteinDistance(userInput, pair.question);
+                if (distance < bestDistance) {
+                    bestDistance = distance;
+                    bestMatch = pair;
+                }
+            });
+
+            return bestDistance <= Math.max(3, userInput.length / 2)
+                ? bestMatch.answer
+                : "You should ask it to your handsome hubby, Shree 🫡";
+        }
+
         function sendMessage() {
-    const userInput = document.getElementById("user-input").value.trim();
-    const chatBox = document.getElementById("chat-box");
+            const inputField = document.getElementById("user-input");
+            const userText = inputField.value.trim();
+            if (!userText) return;
 
-    if (userInput === "") return;
+            displayMessage(userText, "user");
+            setTimeout(() => displayMessage(getAnswer(userText), "bot"), 500);
 
-    chatBox.innerHTML += `<p><strong>Aysh:</strong> ${userInput}</p>`;
-    document.getElementById("user-input").value = "";
+            inputField.value = "";
+        }
 
-    setTimeout(() => {
-        chatBox.innerHTML += `<p><strong>Bot:</strong> ${getBotResponse(userInput)}</p>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }, 500);
-}
-// chatbot//
-function getBotResponse(input) {
-    const responses = {
-        "hello": "Hello aysh ma'am. How're you? 😊",
-        "what is my fav food": "Hmm... your fav food keeps changing but for now it's panipuri",
-        "what is my fav color": "your fav color is white just as pure as your heart ma'am!",
-        "when is my bday": "the world knows it asadh 21st / july 5",
-        "what is my age": "you're now sexy seventeen",
-        "what is my fav animal": "hmm.. trick question, you don't have an fav animal... oh wait you do SHREE GOAT",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-        "": "",
-    };
+        function displayMessage(message, sender) {
+            const chatBox = document.getElementById("chat-box");
+            const msgDiv = document.createElement("div");
+            msgDiv.className = "message " + sender;
+            msgDiv.textContent = message;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
 
-    return responses[input.toLowerCase()] || "You should ask it to your handsome hubby, Shreejal 🫡";
-}
-
-</script>
+        document.getElementById("user-input").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") sendMessage();
+        });
+    </script>
+</body>
 </html>
